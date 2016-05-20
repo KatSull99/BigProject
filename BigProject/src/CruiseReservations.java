@@ -6,7 +6,7 @@ import javax.swing.*;
 public class CruiseReservations extends JFrame
 	{
 	private static final long serialVersionUID = 1L;
-	static String destinationChoice; 
+	static String destinationChoice;
 	static String destination;
 	static String portChoice;
 	static String port;
@@ -19,9 +19,13 @@ public class CruiseReservations extends JFrame
 	static String finalize;
 	static String confirmReservations;
 	static String confirm;
+	static String continueAnswer;
+	static boolean shouldContinue = true;
+	static Reservation reservationR;
+	
 	static JFrame frame = new JFrame();
 	
-	static boolean shouldContinue = true;
+	
 		
 	
 	public static void main(String[] args)
@@ -31,6 +35,7 @@ public class CruiseReservations extends JFrame
 	    		{
 	    	final String[] destinationChoice= {"Alaska", "Bahamas", "Bermuda", "Canada & New England", "Caribbean", "Europe", "Hawaii", "Mexico"};
 
+				String destination;
 				{
 				final JFrame frame = new JFrame();
 			    destination= (String) JOptionPane.showInputDialog(frame, 
@@ -94,7 +99,8 @@ public class CruiseReservations extends JFrame
 						}	
 				}
 				
-					final String[] portChoice= {"Miami, Florida", "Port Canaveral, Florida", "Long Beach, Los Angeles, California", "Galveston, Texas", "Baltimore, Maryland", "Barcelona, Spain", "Tampa, FL", "Jacksonville, FL", "New York, New York", "Seattle, Washington"};
+					final String[] portChoice= {" Miami, Florida", " Port Canaveral, Florida", " Long Beach, Los Angeles, California", " Galveston, Texas", " Baltimore, Maryland", " Barcelona, Spain", " Tampa, FL", " Jacksonville, FL", " New York, New York", " Seattle, Washington"};
+						String port;
 						{
 					final JFrame frame = new JFrame();
 				    port= (String) JOptionPane.showInputDialog(frame, 
@@ -107,7 +113,8 @@ public class CruiseReservations extends JFrame
 					}	
 							
 							
-					final String[] startingDate= {"June 3", "June 10", "June 17", "June 24", "July 1", "July 8", "July 15", "July 22", "July 29", "August 5", "August 12", "August 19", "August 26", "September 3"};
+					final String[] startingDate= {" June 3", " June 10", " June 17", " June 24", " July 1", " July 8", " July 15", " July 22", " July 29", " August 5", " August 12", " August 19", " August 26", " September 3"};
+						String starting;
 						{
 					final JFrame frame = new JFrame();
 					   starting= (String) JOptionPane.showInputDialog(frame, 
@@ -121,7 +128,8 @@ public class CruiseReservations extends JFrame
 																		
 							
 							
-					final String[] durationLength= {"2-5 days", "6-9 days", "10+ days"};
+					final String[] durationLength= {" 2-5 days", " 6-9 days", " 10+ days"};
+							String duration;
 							{
 						final JFrame frame = new JFrame();
 					    duration= (String) JOptionPane.showInputDialog(frame, 
@@ -133,7 +141,7 @@ public class CruiseReservations extends JFrame
 					            durationLength[0]);
 							}
 							
-					final String[] roomTypes= {"Interior cost: $179", "Ocean View cost: &199", "Balcony cost $344", "Suite cost: $419"};
+					final String[] roomTypes= {" Interior cost: $179", " Ocean View cost: $199", " Balcony cost $344", " Suite cost: $419"};
 
 							{
 							final JFrame frame = new JFrame();
@@ -146,24 +154,39 @@ public class CruiseReservations extends JFrame
 						            null);
 							}	
 				
-							finalize = JOptionPane.showInputDialog("Please enter your name below to approve your choices." +  
-							destination  +  
-							port + 
-							starting + 
-							duration + 
-							room);  
+							finalize = JOptionPane.showInputDialog("Please enter your name below to approve your choices.\n" +  
+							"Destination: " + destination  + "\n" +  
+							"Set sail from: " + port + "\n" +
+							"You will leave port on " + starting + "\n" +
+							"Trip duration " + duration + "\n" +
+							"You have reserved a " + room);  
 				
 				
 				
-				confirmReservations = (String) JOptionPane.showInputDialog("Would you like to confirm your cruise reservations for" + starting + "to set sail to" + destination + "?");  
+				confirmReservations = (String) JOptionPane.showInputDialog(finalize + " Would you like to confirm your cruise reservations for" + starting + "to set sail to" + destination + "?");  
 				JOptionPane.showMessageDialog(frame, "Your reservations are confirmed. Have a good time on your trip!");
+				
+				continueAnswer =  JOptionPane.showInputDialog("Would you like to make another reservation?");  
+				
+				if (shouldContinue==true)
+					{
+					if(continueAnswer.equals("no"))
+						{
+						shouldContinue=false;
+						JOptionPane.showMessageDialog(frame, "Here is a receipt for your purchased cruise(s)" + "\n" + "Destination: " + destination  + "\n" +  
+						"Set sail from: " + port + "\n" +
+						"You will leave port on " + starting + "\n" +
+						"Trip duration " + duration + "\n" +
+						"You have reserved a " + room
+						+ reservationR);  
 						
-					answer = (String) JOptionPane.showInputDialog("Would you like to make another reservation?");  
-					JOptionPane.showMessageDialog(frame, + answer  );
-				if (answer==true)
-						{	
+						reservationR=new Reservation(destination, port, starting, duration, room);
+						
+									
+					return;
+						}
 					}
-	    		}		
-			}
-	}
+				}
+	    	}
+	}	    	
 
